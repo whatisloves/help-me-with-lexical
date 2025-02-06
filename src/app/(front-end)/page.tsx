@@ -1,8 +1,30 @@
 import Image from "next/image";
+import { RichText } from "@payloadcms/richtext-lexical/react";
+import { getPayload } from 'payload';
+import config from '../../../payload.config';
+
+const payload = await getPayload({config})
+
+async function fetchPost() {
+  const result = await payload.find({
+    collection: 'posts',
+    limit: 1,
+  })
+
+  return result.docs?.[0] || null
+}
+
+const post = await fetchPost()
+if (!post) {
+  console.log('No post found')
+}
+
+
 
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <RichText data={post.content} />
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
