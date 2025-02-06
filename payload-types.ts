@@ -220,6 +220,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
+  style: 'info' | 'warning' | 'error' | 'success';
   content: {
     root: {
       type: string;
